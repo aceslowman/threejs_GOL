@@ -14,38 +14,44 @@
 
       <div id="GUI">
         <div>
-          <select class="typeselect">
-            <option value="0">square</option>
-            <option value="1">circle</option>
-            <option value="2">noise</option>
-            <option value="3">eraser</option>
-          </select>
-          <select class="resolutionselect">
+          <div id="canvasThumb"></div>
+          <div class="guigroup">
+            <select id="typeselect">
+              <option value="0">square</option>
+              <option value="1">circle</option>
+              <option value="2">noise</option>
+              <option value="3">eraser</option>
+            </select>
+            <input id="sizerange" class="guislider" type="range" min="1" max="100" name="brushsize" oninput="size_amt.value=sizerange.value">
+            <label for="brushsize">size: </label>
+            <output id='size_amt' name='size_amt' for='brushsize'>50</output>
+          </div>
+
+          <div class="guigroup">
+            <input id="speedrange" class="guislider" type="range" min="1" max="60" name="speed" oninput="speed_amt.value=speedrange.value">
+            <label for="speed">speed: </label>
+            <output id='speed_amt' name='speed_amt' for='speed'>30</output>
+          </div>
+        </div>
+        <hr>
+        <div class="guigroup">
+          <select id="resolutionselect">
             <option value="64">64</option>
             <option value="128">128</option>
             <option value="256">256</option>
             <option value="512">512</option>
             <option value="1024">1024</option>
           </select>
-          <button class="clearbutton" type="button">clear</button>
-          <button class="togglepause" type="button">pause</button>
-          <button class="togglegrid" type="button">show grid</button>
-        </div><br>
-        <div>
-          <input id="sizerange" class="sizerange" type="range" min="1" max="100" name="brushsize" oninput="size_amt.value=sizerange.value">
-          <label style="background-color:black;" for="brushsize">brush size</label>
-          <output id='size_amt' name='size_amt' for='brushsize'>50</output>
         </div>
-        <div>
-          <input id="speedrange" class="speedrange" type="range" min="1" max="60" name="speed" oninput="speed_amt.value=speedrange.value">
-          <label style="background-color:black;" for="speed">speed</label>
-          <output id='speed_amt' name='speed_amt' for='speed'>30</output>
+        <div class="guigroup">
+          <button class="buttongui" id="clearbutton" type="button">clear</button>
+          <button class="buttongui" id="togglepause" type="button">pause</button>
+          <button class="buttongui" id="togglegrid" type="button">show grid</button>
         </div>
-        <br>
-        <div>
-          <button class="togglerecord" type="button">record</button>
-          <button class="savebutton" type="button">save</button>
-          <p>frames: <span class="framecount"></span></p>
+        <hr>
+        <div class="guigroup">
+          <button class="buttongui" id="togglerecord" type="button">record</button>
+          <button class="buttongui" id="savebutton" type="button">save</button>
         </div>
       </div>
 

@@ -1,21 +1,5 @@
 import $ from 'jquery';
 
-class CanvasSlider {
-  constructor(canvas){
-    this.canvas = canvas;
-
-    this.canvas.id = 'BRUSH';
-    this.canvas.style.position = 'absolute';
-    this.canvas.style.top = '600px';
-    this.canvas.style.left = '0px';
-
-  }
-
-  onDragStart(){
-    console.log('ding');
-  }
-}
-
 export default class Brush {
   constructor(){
     this.width = 50;
@@ -24,9 +8,9 @@ export default class Brush {
     this.type = 2;
 
     this.canvas = document.createElement('canvas');
-    document.getElementById('GUI').appendChild(this.canvas);
+    this.canvas.id = 'BRUSH';
+    document.getElementById('canvasThumb').appendChild(this.canvas);
 
-    this.slider = new CanvasSlider(this.canvas);
     this.setup();
   }
 
