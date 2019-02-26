@@ -3,6 +3,16 @@ import GPUComputationRenderer from '../utilities/GPUComputationRenderer';
 import * as automataShader from '../shaders/automataShader';
 import Brush from './Brush';
 
+const nextPof2 = (v)=>{
+  v--;
+  v |= v >> 1;
+  v |= v >> 2;
+  v |= v >> 4;
+  v |= v >> 8;
+  v |= v >> 16;
+  return v++;
+}
+
 export default class GOL {
   constructor(manager){
     this.manager = manager;
@@ -245,10 +255,13 @@ export default class GOL {
 
       let intersects = this.raycaster.intersectObject(this.mesh);
 
-      let v = intersects[0].uv;
-      v.multiply(new THREE.Vector2(this.GPUWIDTH, this.GPUHEIGHT));
+      if(intersects){
+        let v = intersects[0].uv;
+        v.multiply(new THREE.Vector2(this.GPUWIDTH, this.GPUHEIGHT));
 
-      this.poke(this.brush.canvas,v.x,v.y);
+        this.poke(this.brush.canvas,v.x,v.y);
+      }
+
       // console.log('DRAG',[e.pageX,e.pageY]);
     }
   }
