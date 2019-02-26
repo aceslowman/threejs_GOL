@@ -30,7 +30,7 @@ const setup = () => {
 
   if(process.env.DEVELOPMENT){
     debug = new Debug(manager, {
-      stats: false,
+      stats: true,
       grid: false
     });
   }
@@ -118,14 +118,14 @@ const render = () => {
   now = Date.now();
   delta = now - then;
 
-  // if(process.env.DEVELOPMENT) debug.stats.begin();
+  if(process.env.DEVELOPMENT) debug.stats.begin();
   if(delta > (1000/framerate)){
     manager.update();
     manager.render();
     then = now - (delta % (1000/framerate));
   }
 
-  // if(process.env.DEVELOPMENT) debug.stats.end();
+  if(process.env.DEVELOPMENT) debug.stats.end();
 
   capturer.capture( manager.canvas );
 
