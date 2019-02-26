@@ -59,11 +59,36 @@ const setup = () => {
     }
   });
 
-  $('.sizerange').on('input', ()=>{
+  $('.sizerange').on('input', (e)=>{
+    // can I get the position of the thumb here?
+    // then I can just change the position of the canvas...
+
+    $('.canvasThumb').css('width', v);
+    $('.canvasThumb').css('height', v);
+
     let v = $('.sizerange').val();
     gol.brush.width = v;
     gol.brush.height = v;
-    gol.brush.setupCanvas();
+
+
+    let position = [
+      $('.sizerange').position().left,
+      $('.sizerange').position().top
+    ];
+
+    position[0] += (v / $('.sizerange').attr('max')) * $('.sizerange').width();
+    position[0] -= (v/2.0);
+    // position[0] += 5;
+
+    position[1] += ($('.sizerange').height()/2.0);
+    position[1] -= (v/2.0);
+    position[1] += 15;
+    console.log(position);
+
+    gol.brush.canvas.style.left = position[0] + 'px';
+    gol.brush.canvas.style.top = position[1] + 'px';
+
+        gol.brush.setup();
   });
 
   $('.speedrange').on('input', ()=>{
@@ -73,7 +98,7 @@ const setup = () => {
 
   $('.typeselect').on('change', ()=>{
     gol.brush.type = $('.typeselect').val();
-    gol.brush.setupCanvas();
+    gol.brush.setup();
   });
 
   $('.resolutionselect').on('change', ()=>{

@@ -22,13 +22,12 @@ export default class OrthoCamera{
       this.manager.width / 2,
       this.manager.height / 2,
       this.manager.height / - 2,
-      1,
+      0,
       2000
     );
 
-    this.zoom = 1;
+    this.zoom = 1.0;
 
-    this.camera.position.z = 500;
     this.camera.zoom = this.zoom;
     this.camera.updateProjectionMatrix();
 
@@ -79,7 +78,7 @@ export default class OrthoCamera{
       this.manager.renderer.domElement
     );
     this.orbitControls.enableDamping = true;
-    this.orbitControls.dampingFactor = 0.8;
+    this.orbitControls.dampingFactor = 1;
     this.orbitControls.minZoom = 1;
     this.orbitControls.maxZoom = 200;
     this.orbitControls.enableRotate = false;
