@@ -40,17 +40,13 @@ export default class Brush {
           }
         }
         break;
+      case '3': //eraser
+        this.ctx.fillStyle = 'rgba(0,0,0,256)';
+        this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+        break;
       default:
         this.ctx.fillStyle = 'rgba(256,0,0,256)';
         this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
     }
-  }
-
-  updateCanvas(){
-    // NOTE: using this in some situations would be more performant, but it
-    // turns the brush into an eraser.
-
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
   }
 }
