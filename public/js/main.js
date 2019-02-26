@@ -118,7 +118,6 @@ const render = () => {
   now = Date.now();
   delta = now - then;
 
-
   if(delta > (1000/framerate)){
     if(process.env.DEVELOPMENT) debug.stats.begin();
     manager.update();
@@ -127,12 +126,7 @@ const render = () => {
     if(process.env.DEVELOPMENT) debug.stats.end();
   }
 
-
-
   capturer.capture( manager.canvas );
-
-  // console.log(capturer.capturer);
-  // $('.framecount').html(capturer.capturer._framecount);
 }
 
 const bindEventListeners = () => {
