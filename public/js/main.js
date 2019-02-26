@@ -45,66 +45,72 @@ const setup = () => {
 
   // LISTENERS ------------------------------------------
 
-  $('.clearbutton').click(()=>{
+  $('#clearbutton').click(()=>{
     gol.clear();
   });
 
-  $('.togglepause').click(()=>{
+  $('#togglepause').click(()=>{
     if(gol.playing){
       gol.pause();
-      $('.togglepause').html('play');
+      $('#togglepause').html('play');
     }else{
       gol.resume();
-      $('.togglepause').html('pause');
+      $('#togglepause').html('pause');
     }
   });
 
-  $('.sizerange').on('input', ()=>{
-    let v = $('.sizerange').val();
+  $('#sizerange').on('input', (e)=>{
+    // gol.brush.canvas.style.position = 'relative';
+    // gol.brush.canvas.style.left = '50%';
+    // gol.brush.canvas.style.top = '50%';
+
+
+    let v = $('#sizerange').val();
     gol.brush.width = v;
     gol.brush.height = v;
-    gol.brush.setupCanvas();
+
+    gol.brush.setup();
   });
 
-  $('.speedrange').on('input', ()=>{
-    let v = $('.speedrange').val();
+  $('#speedrange').on('input', ()=>{
+    let v = $('#speedrange').val();
     framerate = v;
   });
 
-  $('.typeselect').on('change', ()=>{
-    gol.brush.type = $('.typeselect').val();
-    gol.brush.setupCanvas();
+  $('#typeselect').on('change', ()=>{
+    gol.brush.type = $('#typeselect').val();
+    gol.brush.setup();
   });
 
-  $('.resolutionselect').on('change', ()=>{
-    let v = $('.resolutionselect').val();
+  $('#resolutionselect').on('change', ()=>{
+    let v = $('#resolutionselect').val();
     gol.setResolution(v);
   });
 
-  $('.togglegrid').click(()=>{
+  $('#togglegrid').click(()=>{
     if(gol.grid.visible){
       gol.grid.visible = false;
-      $('.togglegrid').html('show grid');
+      $('#togglegrid').html('show grid');
     }else{
       gol.grid.visible = true;
-      $('.togglegrid').html('hide grid');
+      $('#togglegrid').html('hide grid');
     }
   });
 
-  $('.togglerecord').click(()=>{
+  $('#togglerecord').click(()=>{
     if(recording){
       recording = false;
       capturer.capturer.stop();
-      $('.togglerecord').html('record');
+      $('#togglerecord').html('record');
     }else{
       // clearInterval(timeout);
       recording = true;
       capturer.capturer.start();
-      $('.togglerecord').html('STOP RECORDING');
+      $('#togglerecord').html('STOP');
     }
   });
 
-  $('.savebutton').click(()=>{
+  $('#savebutton').click(()=>{
     capturer.capturer.save();
   });
 }

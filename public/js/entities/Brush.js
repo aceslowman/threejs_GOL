@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export default class Brush {
   constructor(){
     this.width = 50;
@@ -5,11 +7,14 @@ export default class Brush {
 
     this.type = 2;
 
-    this.setupCanvas();
+    this.canvas = document.createElement('canvas');
+    this.canvas.id = 'BRUSH';
+    document.getElementById('canvasThumb').appendChild(this.canvas);
+
+    this.setup();
   }
 
-  setupCanvas(){
-    this.canvas = document.createElement('canvas');
+  setup(){
     this.canvas.width = this.width;
     this.canvas.height = this.height;
 
