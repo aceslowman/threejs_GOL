@@ -74,7 +74,7 @@ export default class GOL {
 
     this.manager.addEntity(this);
 
-    this.setupInitialState();
+    this.setupInitialState('color');
     this.initComputeRenderer();
     this.setupDebug();
 
@@ -109,6 +109,15 @@ export default class GOL {
     let height = this.GPUHEIGHT;
 
     switch (state) {
+      case 'color':
+        for (let k = 0, kl = this.initialState.length; k < kl; k += 4) {
+          this.initialState[k + 0] = Math.round(Math.random());
+          this.initialState[k + 1] = Math.round(Math.random());
+          this.initialState[k + 2] = Math.round(Math.random());
+          this.initialState[k + 3] = 1;
+        }
+
+        break;
       case 'clear':
         for (let k = 0, kl = this.initialState.length; k < kl; k += 4) {
           let x = 0;
@@ -148,7 +157,7 @@ export default class GOL {
     this.dtautomata.image.data = this.initialState;
 
     this.automataVariable = this.gpuCompute.addVariable('textureautomata',
-      automataShader.frag, this.dtautomata);
+      automataShader.multi_channel_frag, this.dtautomata);
 
     this.automataUniforms = this.automataVariable.material.uniforms;
 
