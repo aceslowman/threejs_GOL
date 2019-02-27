@@ -83,6 +83,25 @@ canvas{
   justify-content: center;
 }
 
+#photobutton {
+  text-decoration:none;
+}
+
+#photobutton:hover {
+  color:black;
+  text-decoration: none;
+}
+
+#photobutton:visited {
+  color:black;
+  text-decoration: none;
+}
+
+#photobutton:active {
+  color:black;
+  text-decoration: none;
+}
+
 #APP {
   display:flex;
   align-items: center;

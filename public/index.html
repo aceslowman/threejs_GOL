@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>golgarden</title>
+    <title>garden</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
@@ -55,7 +55,7 @@
             <option value="" disabled selected>output</option>
             <option value="gif">gif</option>
             <option value="png">png</option>
-          </select>          
+          </select>
           <select id="dimensionsselect">
             <option value="" disabled selected>dimensions</option>
             <option value="reset">fit</option>
@@ -65,14 +65,17 @@
           </select>
           <button class="buttongui" id="togglerecord" type="button">record</button>
           <button class="buttongui" id="savebutton" type="button">save</button>
+          <button class="buttongui"><a id="photobutton" type="button">snapshot</a></button>
         </div>
       </div>
 
       <div id="APP"><canvas id="APPCANVAS" /></div>
 
       <div id="INFO">
-        <p><em>to zoom, use scroll, or click scroll wheel and drag</em></p>
-        <p><em>to pan, right click and drag</em></p>
+        <p><em><strong>to zoom</strong>, use scroll, or click scroll wheel and drag</em></p>
+        <p><em><strong>to pan</strong>, right click and drag</em></p>
+        <p><em><strong>to play/pause</strong>, press 'z'</em></p>
+        <p><em><strong>to clear</strong>, press 'x'</em></p>
         <hr>
         <a href="https://aceslowman.com">2019, austin slominski</a>
       </div>

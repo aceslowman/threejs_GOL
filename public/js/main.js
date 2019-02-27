@@ -147,6 +147,31 @@ const setup = () => {
   $('#savebutton').click(()=>{
     capturer.capturer.save();
   });
+
+  $('#photobutton').click(()=>{
+    // document.getElementById('photobutton').innerHTML = 'download image';
+    document.getElementById('photobutton').href = manager.renderer.domElement.toDataURL("image/png");
+    document.getElementById('photobutton').download = 'gol.png';
+    // manager.renderer.domElement.toDataURL("image/png");
+  });
+
+  $('body').keyup((e)=>{
+    // backspace == clear
+    if(e.keyCode == 88){
+      gol.clear();
+    }
+
+    // z == toggle play
+    if(e.keyCode == 90){
+      if(gol.playing){
+        gol.pause();
+        $('#togglepause').html('play');
+      }else{
+        gol.resume();
+        $('#togglepause').html('pause');
+      }
+    }
+  });
 }
 
 

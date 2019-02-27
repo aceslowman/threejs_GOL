@@ -44,7 +44,8 @@ export default class StandardManager {
       setup renderer
     */
     this.renderer = new THREE.WebGLRenderer({
-      canvas: canvas
+      canvas: canvas,
+      preserveDrawingBuffer: true // TEMP
     });
 
     this.renderer.setSize(this.width, this.height);
