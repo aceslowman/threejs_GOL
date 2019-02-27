@@ -29,8 +29,8 @@ export default class StandardManager {
       alpha: true
     }
   } = {}) {
-    this.width  = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width  = window.innerHeight - 15;
+    this.height = window.innerHeight - 15;
 
     this.entities = [];
 
@@ -38,13 +38,18 @@ export default class StandardManager {
     this.eventBus = new EventBus();
     this.clock    = new THREE.Clock();
 
+    let canvas = document.getElementById('APPCANVAS');
+
     /*
       setup renderer
     */
-    this.renderer = new THREE.WebGLRenderer(renderer);
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: canvas
+    });
+
     this.renderer.setSize(this.width, this.height);
     // this.renderer.autoClear = false; // for overlay
-    document.body.appendChild(this.renderer.domElement);
+    document.getElementById('APP').appendChild(this.renderer.domElement);
 
     /*
       the main assumed scene for anything other than ui or debug
@@ -101,13 +106,17 @@ export default class StandardManager {
   }
 
   onWindowResize() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.width = window.innerHeight - 15;
+    this.height = window.innerHeight - 15;
 
     this.camera.getCamera().aspect = this.width / this.height;
     this.camera.getCamera().updateProjectionMatrix();
 
     this.renderer.setSize(this.width, this.height);
+
+    // for (let i = 0; i < this.entities.length; i++) {
+    //   this.entities[i].onResize();
+    // }
   }
 
   get canvas() {

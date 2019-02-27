@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import GPUComputationRenderer from '../utilities/GPUComputationRenderer';
 import * as automataShader from '../shaders/automataShader';
 import Brush from './Brush';
+import $ from 'jquery';
 
 const nextPof2 = (v)=>{
   v--;
@@ -217,7 +218,7 @@ export default class GOL {
     let vis = this.grid.visible;
 
     this.manager.scene.remove(this.grid);
-    this.grid = new THREE.GridHelper(this.manager.width, this.GPUWIDTH,'#353535','#353535');
+    this.grid = new THREE.GridHelper(this.GPUWIDTH, this.GPUHEIGHT,'#353535','#353535');
     this.grid.rotation.x = Math.PI / 2;
     this.grid.visible = vis;
     this.manager.scene.add(this.grid);
@@ -229,17 +230,22 @@ export default class GOL {
     let camera = this.manager.camera.getCamera();
     let mouse = new THREE.Vector2();
 
-    mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+    let off_x = $('#APPCANVAS').offset().left;
+    let off_y = $('#APPCANVAS').offset().top;
+
+    mouse.x = ( (e.clientX - off_x) / this.manager.width ) * 2 - 1;
+    mouse.y = - ( (e.clientY - off_y) / this.manager.height ) * 2 + 1;
 
     this.raycaster.setFromCamera(mouse, camera);
 
     let intersects = this.raycaster.intersectObject(this.mesh);
 
-    let v = intersects[0].uv;
-    v.multiply(new THREE.Vector2(this.GPUWIDTH, this.GPUHEIGHT));
+    if(Array.isArray(intersects) && intersects.length){
+      let v = intersects[0].uv;
+      v.multiply(new THREE.Vector2(this.GPUWIDTH, this.GPUHEIGHT));
 
-    this.poke(this.brush.canvas,v.x,v.y);
+      this.poke(this.brush.canvas,v.x,v.y);
+    }
   }
 
   onDrag(e){
@@ -248,27 +254,28 @@ export default class GOL {
       let camera = this.manager.camera.getCamera();
       let mouse = new THREE.Vector2();
 
-      mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-      mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+      let off_x = $('#APPCANVAS').offset().left;
+      let off_y = $('#APPCANVAS').offset().top;
+
+      mouse.x = ( (e.clientX - off_x) / this.manager.width ) * 2 - 1;
+      mouse.y = - ( (e.clientY - off_y) / this.manager.height ) * 2 + 1;
 
       this.raycaster.setFromCamera(mouse, camera);
 
       let intersects = this.raycaster.intersectObject(this.mesh);
 
-      if(intersects){
+      if(Array.isArray(intersects) && intersects.length){
         let v = intersects[0].uv;
         v.multiply(new THREE.Vector2(this.GPUWIDTH, this.GPUHEIGHT));
 
         this.poke(this.brush.canvas,v.x,v.y);
       }
-
-      // console.log('DRAG',[e.pageX,e.pageY]);
     }
   }
 
   onResize(e){
     // TODO: not sure how I want to go about this, but likely necessary
 
-    // this.mesh.
+    console.log("TEST");
   }
 }

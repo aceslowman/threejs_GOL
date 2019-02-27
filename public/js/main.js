@@ -60,11 +60,6 @@ const setup = () => {
   });
 
   $('#sizerange').on('input', (e)=>{
-    // gol.brush.canvas.style.position = 'relative';
-    // gol.brush.canvas.style.left = '50%';
-    // gol.brush.canvas.style.top = '50%';
-
-
     let v = $('#sizerange').val();
     gol.brush.width = v;
     gol.brush.height = v;
@@ -74,6 +69,7 @@ const setup = () => {
 
   $('#speedrange').on('input', ()=>{
     let v = $('#speedrange').val();
+    capturer.capturer.framerate = v; // TODO: this might help with some bugs in safari and firefox.
     framerate = v;
   });
 
@@ -85,6 +81,16 @@ const setup = () => {
   $('#resolutionselect').on('change', ()=>{
     let v = $('#resolutionselect').val();
     gol.setResolution(v);
+  });
+
+  $('#outputselect').on('change', ()=>{
+    let v = $('#outputselect').val();
+
+    manager.width = v;
+    manager.height = v;
+    manager.camera.getCamera().aspect = manager.width / manager.height;
+    manager.camera.getCamera().updateProjectionMatrix();
+    manager.renderer.setSize(v,v);
   });
 
   $('#togglegrid').click(()=>{
@@ -103,7 +109,7 @@ const setup = () => {
       capturer.capturer.stop();
       $('#togglerecord').html('record');
     }else{
-      // clearInterval(timeout);
+      capturer.capturer.framerate = framerate;
       recording = true;
       capturer.capturer.start();
       $('#togglerecord').html('STOP');

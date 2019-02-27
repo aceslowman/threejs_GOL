@@ -5,7 +5,16 @@ body{
   font-family: Helvetica;
 }
 
+html, body, .container {
+  height:100%;
+  background-color:black;
+}
+
 canvas{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border:1px solid white;
   display:block;
 }
 
@@ -57,6 +66,13 @@ canvas{
   justify-content: center;
 }
 
-#canvasThumb canvas{
-  /* margin:0 auto; */
+#APP {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+}
+
+#APP canvas {
+  transition: all 500ms ease;
 }
