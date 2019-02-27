@@ -17,10 +17,10 @@
           <div class="guigroup">
             <select id="typeselect">
               <option value="" disabled selected>shape</option>
-              <option value="0">square</option>
-              <option value="1">circle</option>
-              <option value="2">noise</option>
-              <option value="3">eraser</option>
+              <option value="square">square</option>
+              <option value="circle">circle</option>
+              <option value="noise">noise</option>
+              <option value="eraser">eraser</option>
             </select>
             <input id="sizerange" class="guislider" type="range" min="1" max="100" name="brushsize" oninput="size_amt.value=sizerange.value">
             <label for="brushsize">size: </label>
@@ -45,9 +45,12 @@
           </select>
         </div>
         <div class="guigroup">
-          <button class="buttongui" id="clearbutton" type="button">clear</button>
-          <button class="buttongui" id="togglepause" type="button">pause</button>
-          <button class="buttongui" id="togglegrid" type="button">show grid</button>
+          <!-- <a id="clearbutton">🗑</a>
+          <a id="togglepause">⏸️</a>
+          <a id="togglegrid">▦</a> -->
+          <button class="buttongui" id="clearbutton" type="button">🗑 clear</button>
+          <button class="buttongui" id="togglepause" type="button">⏸️ pause</button>
+          <button class="buttongui" id="togglegrid" type="button">▦ show grid</button>
         </div>
         <hr>
         <div class="guigroup">
@@ -63,9 +66,14 @@
             <option value="512">512 x 512</option>
             <option value="1024">1024 x 1024</option>
           </select>
-          <button class="buttongui" id="togglerecord" type="button">record</button>
-          <button class="buttongui" id="savebutton" type="button">save</button>
-          <button class="buttongui"><a id="photobutton" type="button">snapshot</a></button>
+
+          <!-- <a href="">⏺</a>
+          <a href="">💾</a>
+          <a href="">📷</a> -->
+
+          <button class="buttongui" id="togglerecord" type="button">⏺ record</button>
+          <button class="buttongui" id="savebutton" type="button">💾 save</button>
+          <button class="buttongui"><a id="photobutton" type="button">📷 photo</a></button>
         </div>
       </div>
 
@@ -76,6 +84,7 @@
         <p><em><strong>to pan</strong>, right click and drag</em></p>
         <p><em><strong>to play/pause</strong>, press 'z'</em></p>
         <p><em><strong>to clear</strong>, press 'x'</em></p>
+        <p><em><strong>to erase</strong>, select brush, or press 'c'</em></p>
         <hr>
         <a href="https://aceslowman.com">2019, austin slominski</a>
       </div>

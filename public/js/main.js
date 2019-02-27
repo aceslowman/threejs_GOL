@@ -20,6 +20,8 @@ let recording = false;
 
 let timeout;
 
+let current_brush = 'square';
+
 // if(window.location.hash){
 //   let hash = window.location.hash.substring(1);
 //   alert(hash);
@@ -58,10 +60,10 @@ const setup = () => {
   $('#togglepause').click(()=>{
     if(gol.playing){
       gol.pause();
-      $('#togglepause').html('play');
+      $('#togglepause').html('▷ play');
     }else{
       gol.resume();
-      $('#togglepause').html('pause');
+      $('#togglepause').html('⏸️ pause');
     }
   });
 
@@ -82,6 +84,7 @@ const setup = () => {
   $('#typeselect').on('change', ()=>{
     gol.brush.type = $('#typeselect').val();
     gol.brush.setup();
+    $('#typeselect').blur();
   });
 
   $('#resolutionselect').on('change', ()=>{
@@ -124,10 +127,10 @@ const setup = () => {
   $('#togglegrid').click(()=>{
     if(gol.grid.visible){
       gol.grid.visible = false;
-      $('#togglegrid').html('show grid');
+      $('#togglegrid').html('▦ show grid');
     }else{
       gol.grid.visible = true;
-      $('#togglegrid').html('hide grid');
+      $('#togglegrid').html('▦ hide grid');
     }
   });
 
@@ -135,12 +138,12 @@ const setup = () => {
     if(recording){
       recording = false;
       capturer.capturer.stop();
-      $('#togglerecord').html('record');
+      $('#togglerecord').html('⏺ record');
     }else{
       capturer.capturer.framerate = framerate; // FIXME
       recording = true;
       capturer.capturer.start();
-      $('#togglerecord').html('STOP');
+      $('#togglerecord').html('⏺ STOP');
     }
   });
 
@@ -156,7 +159,7 @@ const setup = () => {
   });
 
   $('body').keyup((e)=>{
-    // backspace == clear
+    // x == clear
     if(e.keyCode == 88){
       gol.clear();
     }
@@ -165,10 +168,27 @@ const setup = () => {
     if(e.keyCode == 90){
       if(gol.playing){
         gol.pause();
-        $('#togglepause').html('play');
+        $('#togglepause').html('play ▷');
       }else{
         gol.resume();
-        $('#togglepause').html('pause');
+        $('#togglepause').html('pause ⏸️');
+      }
+    }
+
+    // c == erase
+    if(e.keyCode == 67){
+      if(gol.brush.type == 'eraser'){
+        $('#typeselect').blur();
+        gol.brush.type = current_brush;
+        gol.brush.setup();
+        $('#typeselect').val(current_brush);
+      }else{
+        $('#typeselect').blur();
+        current_brush = $('#typeselect').val();
+        console.log(current_brush);
+        gol.brush.type = 'eraser';
+        gol.brush.setup();
+        $('#typeselect').val('eraser'); //eraser, working
       }
     }
   });

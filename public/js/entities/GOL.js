@@ -80,17 +80,32 @@ export default class GOL {
 
         break;
       default:
-        for (let k = 0, kl = this.initialState.length; k < kl; k += 4) {
-          let x = 0;
+        console.log('testjhe');
+        let k = 0;
+        for(let y = 0, k = 0; y < height; y++){
+          for(let x = 0; x < width; x++){
+            let v = 0;
+            // let center = [width / 2, height / 2];
+            //
+            // if(Math.pow(x - center[0],2) + Math.pow(y - center[1],2) < Math.pow(width / 2,2)){
+            //   v = 1;
+            // }
+            let padding = width / 10;
 
-          if(k % width > ~~(k/width) && k % height < ~~(k/height)){
-            x = 1;
+            let xcheck = x > (width/2) - padding && x < (width/2) + padding;
+            let ycheck = y > (height/2) - padding && y < (height/2) + padding;
+
+            if(xcheck && ycheck){
+              v = 1;
+            }
+
+            this.initialState[k + 0] = v;
+            this.initialState[k + 1] = v;
+            this.initialState[k + 2] = v;
+            this.initialState[k + 3] = 1;
+
+            k += 4;
           }
-
-          this.initialState[k + 0] = x;
-          this.initialState[k + 1] = x;
-          this.initialState[k + 2] = x;
-          this.initialState[k + 3] = 1;
         }
     }
   }

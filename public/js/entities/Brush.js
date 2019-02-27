@@ -5,7 +5,7 @@ export default class Brush {
     this.width = 50;
     this.height = 50;
 
-    this.type = 2;
+    this.type = 'square';
 
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'BRUSH';
@@ -24,17 +24,17 @@ export default class Brush {
 
     // TODO: allow for transparency... somehow
     switch (this.type) {
-      case '0': //solid square
+      case 'square': //solid square
         this.ctx.fillStyle = 'rgba(256,0,0,256)';
         this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
         break;
-      case '1': //solid circle
+      case 'circle': //solid circle
         this.ctx.fillStyle = 'rgba(256,0,0,256)';
         this.ctx.beginPath();
         this.ctx.arc(this.width/2,this.height/2,this.width/2,0, 2 * Math.PI)
         this.ctx.fill();
         break;
-      case '2': //noise
+      case 'noise': //noise
         for(let x = 0; x < this.width; x++){
           for(let y = 0; y < this.height; y++){
             let r = Math.round(Math.random());
@@ -45,7 +45,7 @@ export default class Brush {
           }
         }
         break;
-      case '3': //eraser
+      case 'eraser': //eraser
         this.ctx.fillStyle = 'rgba(0,0,0,256)';
         this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
         break;
