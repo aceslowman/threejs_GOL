@@ -69,7 +69,7 @@ const setup = () => {
 
   $('#speedrange').on('input', ()=>{
     let v = $('#speedrange').val();
-    capturer.capturer.framerate = v; // TODO: this might help with some bugs in safari and firefox.
+    // capturer.capturer.framerate = v; // TODO: this might help with some bugs in safari and firefox.
     framerate = v;
   });
 
@@ -113,7 +113,7 @@ const setup = () => {
       capturer.capturer.stop();
       $('#togglerecord').html('record');
     }else{
-      capturer.capturer.framerate = framerate;
+      capturer.capturer.framerate = framerate; // FIXME
       recording = true;
       capturer.capturer.start();
       $('#togglerecord').html('STOP');
@@ -134,13 +134,22 @@ const render = () => {
   now = Date.now();
   delta = now - then;
 
-  if(delta > (1000/framerate)){
-    if(process.env.DEVELOPMENT) debug.stats.begin();
-    manager.update();
-    manager.render();
-    then = now - (delta % (1000/framerate));
-    if(process.env.DEVELOPMENT) debug.stats.end();
+  if(!recording){
+    if(delta > (1000/framerate)){
+      if(process.env.DEVELOPMENT) debug.stats.begin();
+      manager.update();
+      manager.render();
+      then = now - (delta % (1000/framerate));
+      if(process.env.DEVELOPMENT) debug.stats.end();
+    }
+  }else{
+      if(process.env.DEVELOPMENT) debug.stats.begin();
+      manager.update();
+      manager.render();
+      then = now - (delta % (1000/framerate));
+      if(process.env.DEVELOPMENT) debug.stats.end();
   }
+
 
   capturer.capture( manager.canvas );
 }
