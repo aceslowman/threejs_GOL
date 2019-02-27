@@ -20,6 +20,11 @@ let recording = false;
 
 let timeout;
 
+// if(window.location.hash){
+//   let hash = window.location.hash.substring(1);
+//   alert(hash);
+// }
+
 const setup = () => {
   manager = new StandardManager();
 
@@ -39,8 +44,9 @@ const setup = () => {
     framerate: framerate,
     verbose: true,
     display: true,
-    format: 'png',
-    workersPath: 'js/utils/'
+    format: 'gif',
+    workersPath: 'js/utilities/',
+    name: 'gol'
   });
 
   // LISTENERS ------------------------------------------
@@ -85,6 +91,24 @@ const setup = () => {
 
   $('#outputselect').on('change', ()=>{
     let v = $('#outputselect').val();
+
+    if(v){
+      console.log('hit');
+      // capturer.capturer.format = v;
+      // capturer = null;
+      capturer = new Capture(manager, {
+        framerate: framerate,
+        verbose: true,
+        display: true,
+        format: v,
+        workersPath: 'js/utilities/',
+        name: 'gol'
+      });
+    }
+  });
+
+  $('#dimensionsselect').on('change', ()=>{
+    let v = $('#dimensionsselect').val();
 
     if(v == 'reset'){
       manager.onWindowResize();
