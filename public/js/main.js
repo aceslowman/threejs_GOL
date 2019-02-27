@@ -86,11 +86,15 @@ const setup = () => {
   $('#outputselect').on('change', ()=>{
     let v = $('#outputselect').val();
 
-    manager.width = v;
-    manager.height = v;
-    manager.camera.getCamera().aspect = manager.width / manager.height;
-    manager.camera.getCamera().updateProjectionMatrix();
-    manager.renderer.setSize(v,v);
+    if(v == 'reset'){
+      manager.onWindowResize();
+    }else{
+      manager.width = v;
+      manager.height = v;
+      manager.camera.getCamera().aspect = manager.width / manager.height;
+      manager.camera.getCamera().updateProjectionMatrix();
+      manager.renderer.setSize(v,v);
+    }
   });
 
   $('#togglegrid').click(()=>{

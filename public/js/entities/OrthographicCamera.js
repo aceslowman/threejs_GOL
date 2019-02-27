@@ -26,7 +26,7 @@ export default class OrthoCamera{
       2000
     );
 
-    this.zoom = 1;
+    this.zoom = 2.2;
 
     this.camera.position.z = 500;
     this.camera.zoom = this.zoom;

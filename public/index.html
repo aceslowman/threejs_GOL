@@ -53,6 +53,7 @@
         <div class="guigroup">
           <select id="outputselect">
             <option value="" disabled selected>dimensions</option>
+            <option value="reset">fit</option>
             <option value="256">256 x 256</option>
             <option value="512">512 x 512</option>
             <option value="1024">1024 x 1024</option>
@@ -63,6 +64,13 @@
       </div>
 
       <div id="APP"><canvas id="APPCANVAS" /></div>
+
+      <div id="INFO">
+        <p><em>to zoom, use scroll, or click scroll wheel and drag</em></p>
+        <p><em>to pan, right click and drag</em></p>
+        <hr>
+        <a href="https://aceslowman.com">2019, austin slominski</a>
+      </div>
 
       <!--
         Not ideal, but CCapture is currently not bundled correctly for NPM.

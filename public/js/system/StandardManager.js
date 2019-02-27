@@ -29,8 +29,8 @@ export default class StandardManager {
       alpha: true
     }
   } = {}) {
-    this.width  = window.innerHeight - 15;
-    this.height = window.innerHeight - 15;
+    this.width  = window.innerHeight - 30;
+    this.height = window.innerHeight - 30;
 
     this.entities = [];
 
@@ -106,8 +106,8 @@ export default class StandardManager {
   }
 
   onWindowResize() {
-    this.width = window.innerHeight - 15;
-    this.height = window.innerHeight - 15;
+    this.width = window.innerHeight - 30;
+    this.height = window.innerHeight - 30;
 
     this.camera.getCamera().aspect = this.width / this.height;
     this.camera.getCamera().updateProjectionMatrix();
