@@ -96,7 +96,6 @@ const setup = () => {
     let v = $('#outputselect').val();
 
     if(v){
-      console.log('hit');
       // capturer.capturer.format = v;
       // capturer = null;
       capturer = new Capture(manager, {
@@ -185,7 +184,6 @@ const setup = () => {
       }else{
         $('#typeselect').blur();
         current_brush = $('#typeselect').val();
-        console.log(current_brush);
         gol.brush.type = 'eraser';
         gol.brush.setup();
         $('#typeselect').val('eraser'); //eraser, working

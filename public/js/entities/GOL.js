@@ -80,7 +80,6 @@ export default class GOL {
 
         break;
       default:
-        console.log('testjhe');
         let k = 0;
         for(let y = 0, k = 0; y < height; y++){
           for(let x = 0; x < width; x++){
@@ -291,6 +290,5 @@ export default class GOL {
   onResize(e){
     // TODO: not sure how I want to go about this, but likely necessary
 
-    console.log("TEST");
   }
 }
