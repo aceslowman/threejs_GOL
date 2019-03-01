@@ -1,12 +1,14 @@
 const frag = `
   uniform sampler2D state;
 
-  int get(int x, int y) {
-    return int(texture2D(state, (gl_FragCoord.xy + vec2(x, y)) / resolution.xy).r);
+  ivec3 get(int x, int y) {
+    vec3 tex = texture2D(state, (gl_FragCoord.xy + vec2(x, y)) / resolution.xy).rgb;
+
+    return ivec3(int(tex.r),int(tex.g),int(tex.b));
   }
 
   void main() {
-    int sum = get(-1, -1) +
+    ivec3 sum = get(-1, -1) +
               get(-1,  0) +
               get(-1,  1) +
               get( 0, -1) +
@@ -14,14 +16,30 @@ const frag = `
               get( 1, -1) +
               get( 1,  0) +
               get( 1,  1);
-    if (sum == 3) {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-    } else if (sum == 2) {
-        float current = float(get(0, 0));
-        gl_FragColor = vec4(current, current, current, 1.0);
+
+    float r = 0.0;
+    float g = 0.0;
+    float b = 0.0;
+
+    // BASIC R SPECIES RULES
+    if(sum.r == 3){
+      r = 1.0;
+    } else if (sum.r == 2){
+      r = float(get(0,0).r);
     } else {
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+      r = 0.0;
     }
+
+    // BASIC G SPECIES RULES
+    if(sum.g == 3){
+      g = 1.0;
+    } else if (sum.g == 2){
+      g = float(get(0,0).g);
+    } else {
+      g = 0.0;
+    }
+
+    gl_FragColor = vec4(r,g,b,1.0);
   }
 `;
 

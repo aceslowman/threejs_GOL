@@ -84,11 +84,6 @@ export default class GOL {
         for(let y = 0, k = 0; y < height; y++){
           for(let x = 0; x < width; x++){
             let v = 0;
-            // let center = [width / 2, height / 2];
-            //
-            // if(Math.pow(x - center[0],2) + Math.pow(y - center[1],2) < Math.pow(width / 2,2)){
-            //   v = 1;
-            // }
             let padding = width / 10;
 
             let xcheck = x > (width/2) - padding && x < (width/2) + padding;
