@@ -17,14 +17,18 @@ const frag = `
   }
 
   void main() {
-    ivec3 sum = get(-1, -1) +
-              get(-1,  0) +
-              get(-1,  1) +
-              get( 0, -1) +
-              get( 0,  1) +
-              get( 1, -1) +
-              get( 1,  0) +
-              get( 1,  1);
+    // a scalar results in a dithering effect, useful for things like dust or clouds
+
+    int scalar = 1;
+
+    ivec3 sum = get(-scalar, -scalar) +
+              get(-scalar,  0) +
+              get(-scalar,  scalar) +
+              get( 0, -scalar) +
+              get( 0,  scalar) +
+              get( scalar, -scalar) +
+              get( scalar,  0) +
+              get( scalar,  scalar);
 
     float r = 0.0;
     float g = 0.0;
