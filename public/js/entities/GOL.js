@@ -94,8 +94,8 @@ export default class GOL {
             }
 
             this.initialState[k + 0] = v;
-            this.initialState[k + 1] = v;
-            this.initialState[k + 2] = v;
+            this.initialState[k + 1] = 0;
+            this.initialState[k + 2] = 0;
             this.initialState[k + 3] = 1;
 
             k += 4;
@@ -244,6 +244,9 @@ export default class GOL {
 
     mouse.x = ( (e.clientX - off_x) / this.manager.width ) * 2 - 1;
     mouse.y = - ( (e.clientY - off_y) / this.manager.height ) * 2 + 1;
+
+    // regenerate noise brush
+    this.brush.setup();
 
     this.raycaster.setFromCamera(mouse, camera);
 

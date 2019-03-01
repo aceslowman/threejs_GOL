@@ -37,10 +37,15 @@ export default class Brush {
       case 'noise': //noise
         for(let x = 0; x < this.width; x++){
           for(let y = 0; y < this.height; y++){
-            let r = Math.round(Math.random());
-            let color = 0;
-            if(r) color = 256;
-            this.ctx.fillStyle = `rgba(${color},0,0,256)`;
+            let rgb = [
+              `rgba(255,0,0,255)`,
+              `rgba(0,255,0,255)`,
+              `rgba(0,0,255,255)`,
+              `rgba(0,0,0,255)`
+            ];
+
+            this.ctx.fillStyle = rgb[Math.floor(Math.random()*4)];
+
             this.ctx.fillRect(x,y,this.canvas.width,this.canvas.height);
           }
         }
