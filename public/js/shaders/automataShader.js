@@ -74,4 +74,46 @@ const frag = `
   }
 `;
 
-export { frag };
+const displayVert = `
+// attribute vec2 uv;
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+
+  vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+  gl_Position = projectionMatrix * modelViewPosition;
+}
+`;
+
+// TODO: you can unroll loop beforehand, which I should do to match Zucconis optimization
+
+const displayFrag = `
+  uniform sampler2D automataTexture;
+
+  uniform vec2 resolution;
+
+  uniform vec3 lookup_r;
+  uniform vec3 lookup_g;
+  uniform vec3 lookup_b;
+
+  varying vec2 vUv;
+
+  void main(){
+    vec2 uv = vUv;
+    vec3 color = texture2D(automataTexture, uv).rgb;
+
+    if(color.r == 1.0){
+      color = lookup_r;
+    }else if(color.g == 1.0){
+      color = lookup_g;
+    }else if(color.b == 1.0){
+      color = lookup_b;
+    }
+
+    gl_FragColor = vec4(color.rbg,1.0);
+    // gl_FragColor = vec4(uv.x,uv.y,0.0,1.0);
+  }
+`;
+
+export { frag, displayFrag, displayVert };

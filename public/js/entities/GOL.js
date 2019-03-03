@@ -45,9 +45,25 @@ export default class GOL {
   }
 
   setupDebug(){
-    this.automata_debug_material = new THREE.MeshBasicMaterial();
-    let geometry = new THREE.PlaneBufferGeometry(this.manager.width, this.manager.height, 1);
-    this.mesh = new THREE.Mesh(geometry, this.automata_debug_material);
+    let geometry = new THREE.PlaneBufferGeometry(this.manager.width, this.manager.height, 1, 1);
+
+    this.automata_debug_material = new THREE.MeshBasicMaterial({color: 'green'});
+
+    this.displayUniforms = {
+      'automataTexture': { value: null },
+      'resolution': { value: new THREE.Vector2(this.GPUWIDTH,this.GPUHEIGHT) },
+      'lookup_r': { value: new THREE.Color('aqua') },
+      'lookup_g': { value: new THREE.Color('orange') },
+      'lookup_b': { value: new THREE.Color('pink') },
+    };
+
+    this.automata_display_shader = new THREE.ShaderMaterial({
+      vertexShader: automataShader.displayVert,
+      fragmentShader: automataShader.displayFrag,
+      uniforms: this.displayUniforms
+    });
+
+    this.mesh = new THREE.Mesh(geometry, this.automata_display_shader);
     this.manager.scene.add(this.mesh);
 
     // define toggleable gridHelper for placement.
@@ -142,7 +158,13 @@ export default class GOL {
     this.automata_alt_texture = this.gpuCompute.getAlternateRenderTarget(
       this.automataVariable).texture;
 
-    this.automata_debug_material.map = this.automata_texture;
+    // this.automata_debug_material.map = this.automata_texture;
+
+    // this.displayUniforms['resolution'].value = [this.manager.width, this.manager.height];
+    this.displayUniforms['automataTexture'].value = this.automata_texture;
+    this.displayUniforms['lookup_r'] = { value: new THREE.Color('aqua') };
+    this.displayUniforms['lookup_g'] = { value: new THREE.Color('orange') };
+    this.displayUniforms['lookup_b'] = { value: new THREE.Color('pink') };
 
     this.automataUniforms['time'].value = now;
     this.automataUniforms['delta'].value = delta;
@@ -214,6 +236,11 @@ export default class GOL {
   }
 
   setResolution(res){
+
+    //TODO
+
+
+
     this.aspect = this.manager.width / this.manager.height;
 
     this.resolution = Number(res);
