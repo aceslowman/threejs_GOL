@@ -41,7 +41,7 @@ export default class GOL {
     this.manager.renderer.domElement.addEventListener('mousemove', (e)=>this.onDrag(e), false);
     window.addEventListener('resize',(e)=>this.onResize(e), false);
 
-    this.playing = true;
+    this.playing = false;
   }
 
   setupDebug(){
@@ -51,8 +51,7 @@ export default class GOL {
 
     this.displayUniforms = {
       'automataTexture': { value: null },
-      'resolution': { value: new THREE.Vector2(this.GPUWIDTH,this.GPUHEIGHT) },
-      'lookup_r': { value: new THREE.Color('aqua') },
+      'lookup_r': { value: new THREE.Color('white') },
       'lookup_g': { value: new THREE.Color('orange') },
       'lookup_b': { value: new THREE.Color('pink') },
     };
@@ -110,8 +109,8 @@ export default class GOL {
             }
 
             this.initialState[k + 0] = v;
-            this.initialState[k + 1] = 0;
-            this.initialState[k + 2] = 0;
+            this.initialState[k + 1] = v;
+            this.initialState[k + 2] = v;
             this.initialState[k + 3] = 1;
 
             k += 4;
@@ -162,9 +161,6 @@ export default class GOL {
 
     // this.displayUniforms['resolution'].value = [this.manager.width, this.manager.height];
     this.displayUniforms['automataTexture'].value = this.automata_texture;
-    this.displayUniforms['lookup_r'] = { value: new THREE.Color('aqua') };
-    this.displayUniforms['lookup_g'] = { value: new THREE.Color('orange') };
-    this.displayUniforms['lookup_b'] = { value: new THREE.Color('pink') };
 
     this.automataUniforms['time'].value = now;
     this.automataUniforms['delta'].value = delta;

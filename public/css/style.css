@@ -107,6 +107,8 @@ canvas{
   align-items: center;
   justify-content: center;
   height:100%;
+  overflow:hidden;
+  max-width:80%;
 }
 
 #APP canvas {
