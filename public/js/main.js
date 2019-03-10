@@ -60,10 +60,10 @@ const setup = () => {
   $('#togglepause').click(()=>{
     if(gol.playing){
       gol.pause();
-      $('#togglepause').html('▷ play');
+      $('#togglepause').html('play');
     }else{
       gol.resume();
-      $('#togglepause').html('⏸️ pause');
+      $('#togglepause').html('pause');
     }
   });
 
@@ -137,12 +137,12 @@ const setup = () => {
     if(recording){
       recording = false;
       capturer.capturer.stop();
-      $('#togglerecord').html('⏺ record');
+      $('#togglerecord').html('record');
     }else{
       capturer.capturer.framerate = framerate; // FIXME
       recording = true;
       capturer.capturer.start();
-      $('#togglerecord').html('⏺ STOP');
+      $('#togglerecord').html('STOP');
     }
   });
 
@@ -170,7 +170,7 @@ const setup = () => {
         $('#togglepause').html('play ▷');
       }else{
         gol.resume();
-        $('#togglepause').html('pause ⏸️');
+        $('#togglepause').html('pause');
       }
     }
 

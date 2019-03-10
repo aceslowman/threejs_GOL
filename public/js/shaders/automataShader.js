@@ -7,57 +7,6 @@
   https://www.alanzucconi.com/2016/03/16/cellular-automata-with-shaders/
 */
 
-const frag = `
-  uniform sampler2D state;
-
-  ivec3 get(int x, int y) {
-    vec3 tex = texture2D(state, (gl_FragCoord.xy + vec2(x, y)) / resolution.xy).rgb;
-
-    return ivec3(int(tex.r),int(tex.g),int(tex.b));
-  }
-
-  void main() {
-    // a scalar results in a dithering effect, useful for things like dust or clouds
-
-    int scalar = 1;
-
-    ivec3 sum = get(-scalar, -scalar) +
-              get(-scalar,  0) +
-              get(-scalar,  scalar) +
-              get( 0, -scalar) +
-              get( 0,  scalar) +
-              get( scalar, -scalar) +
-              get( scalar,  0) +
-              get( scalar,  scalar);
-
-    float r = 0.0;
-    float g = 0.0;
-    float b = 0.0;
-
-    bool live_condition_r = get(0,-scalar).r + sum.r == 3;
-    bool stay_condition_r = cos(float(sum.r)) > 0.5;
-
-    if(live_condition_r){
-      r = 1.0;
-    }else if (stay_condition_r){
-      r = float(get(0,0).r);
-    }
-
-    // bool live_condition_g = get(0,-scalar).g + sum.g == 3;
-    // bool stay_condition_g = cos(float(sum.g)) > 0.5;
-    //
-    // if(live_condition_g){
-    //   g = 1.0;
-    // }else if (stay_condition_g){
-    //   g = float(get(0,0).g);
-    // }
-
-
-
-    gl_FragColor = vec4(r,g,b,1.0);
-  }
-`;
-
 // const frag = `
 //   uniform sampler2D state;
 //
@@ -85,45 +34,85 @@ const frag = `
 //     float g = 0.0;
 //     float b = 0.0;
 //
-//     // BASIC R SPECIES RULES
-//     if(sum.r == 3 && sum.g < 3 && sum.b < 3){ // survival
+//     bool live_condition_r = get(0,scalar).r + sum.r == 3;
+//     bool stay_condition_r = sin(float(sum.r)) > 0.5;
+//
+//     if(live_condition_r){
 //       r = 1.0;
-//     } else if (sum.r == 2 && sum.g < 3 && sum.b < 3){ // survival
+//     }else if (stay_condition_r){
 //       r = float(get(0,0).r);
-//     } else { // death
-//       r = 0.0;
 //     }
-//
-//     // BASIC G SPECIES RULES
-//     if(sum.g == 3 && sum.r < 3 && sum.b < 3){
-//       g = 1.0;
-//     } else if (sum.g == 2 && sum.r < 3 && sum.b < 3){
-//       g = float(get(0,0).g);
-//     } else {
-//       g = 0.0;
-//     }
-//
-//     // BASIC B SPECIES RULES
-//     if(sum.b == 3 && sum.r < 3 && sum.g < 3){
-//       b = 1.0;
-//     } else if (sum.b == 2 && sum.r < 3 && sum.g < 3){
-//       b = float(get(0,0).b);
-//     } else {
-//       b = 0.0;
-//     }
-//
-//     /*
-//       ideas
-//
-//       use 0-1 in each channel to represent lifespan,
-//       with the color fading out to black over time?
-//
-//       or even fade to white, with white being unmoveable
-//     */
 //
 //     gl_FragColor = vec4(r,g,b,1.0);
 //   }
 // `;
+
+const frag = `
+  uniform sampler2D state;
+
+  ivec3 get(int x, int y) {
+    vec3 tex = texture2D(state, (gl_FragCoord.xy + vec2(x, y)) / resolution.xy).rgb;
+
+    return ivec3(int(tex.r),int(tex.g),int(tex.b));
+  }
+
+  void main() {
+    // a scalar results in a dithering effect, useful for things like dust or clouds
+
+    int scalar = 1;
+
+    ivec3 sum = get(-scalar, -scalar) +
+              get(-scalar,  0) +
+              get(-scalar,  scalar) +
+              get( 0, -scalar) +
+              get( 0,  scalar) +
+              get( scalar, -scalar) +
+              get( scalar,  0) +
+              get( scalar,  scalar);
+
+    float r = 0.0;
+    float g = 0.0;
+    float b = 0.0;
+
+    // BASIC R SPECIES RULES
+    if(sum.r == 3 && sum.g < 3 && sum.b < 3){ // survival
+      r = 1.0;
+    } else if (sum.r == 2 && sum.g < 3 && sum.b < 3){ // survival
+      r = float(get(0,0).r);
+    } else { // death
+      r = 0.0;
+    }
+
+    // BASIC G SPECIES RULES
+    if(sum.g == 3 && sum.r < 3 && sum.b < 3){
+      g = 1.0;
+    } else if (sum.g == 2 && sum.r < 3 && sum.b < 3){
+      g = float(get(0,0).g);
+    } else {
+      g = 0.0;
+    }
+
+    // BASIC B SPECIES RULES
+    if(sum.b == 3 && sum.r < 3 && sum.g < 3){
+      b = 1.0;
+    } else if (sum.b == 2 && sum.r < 3 && sum.g < 3){
+      b = float(get(0,0).b);
+    } else {
+      b = 0.0;
+    }
+
+    /*
+      ideas
+
+      use 0-1 in each channel to represent lifespan,
+      with the color fading out to black over time?
+
+      or even fade to white, with white being unmoveable
+    */
+
+    gl_FragColor = vec4(r,g,b,1.0);
+  }
+`;
 
 const displayVert = `
 // attribute vec2 uv;
