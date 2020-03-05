@@ -18,12 +18,14 @@ export default class GOL {
   constructor(manager){
     this.manager = manager;
 
-    this.aspect = this.manager.width / this.manager.height;
+    // this.aspect = this.manager.width / this.manager.height;
 
-    this.resolution = 1024;
+    this.resolution = [1024,1024];
 
-    this.GPUWIDTH = this.resolution;
-    this.GPUHEIGHT = this.resolution / this.aspect;
+    this.aspect = this.resolution[0] / this.resolution[1];
+
+    this.GPUWIDTH = this.resolution[0];
+    this.GPUHEIGHT = this.resolution[1] / this.aspect;
 
     this.last = 0;
 
@@ -231,18 +233,13 @@ export default class GOL {
     this.playing = true;
   }
 
-  setResolution(res){
-
-    //TODO
-
-
-
+  setResolution(w,h){
     this.aspect = this.manager.width / this.manager.height;
 
-    this.resolution = Number(res);
+    this.resolution = [Number(w),Number(h)];
 
-    this.GPUWIDTH = this.resolution;
-    this.GPUHEIGHT = this.resolution / this.aspect;
+    this.GPUWIDTH = this.resolution[0];
+    this.GPUHEIGHT = this.resolution[1] / this.aspect;
 
     this.setupInitialState();
     this.initComputeRenderer();

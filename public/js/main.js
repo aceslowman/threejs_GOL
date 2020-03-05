@@ -22,11 +22,6 @@ let timeout;
 
 let current_brush = 'square';
 
-// if(window.location.hash){
-//   let hash = window.location.hash.substring(1);
-//   alert(hash);
-// }
-
 const setup = () => {
   manager = new StandardManager();
 
@@ -88,8 +83,10 @@ const setup = () => {
   });
 
   $('#resolutionselect').on('change', ()=>{
-    let v = $('#resolutionselect').val();
-    gol.setResolution(v);
+    let v = $('#resolutionselect').val().split('x');
+    console.log(v[0],v[1]);
+
+    gol.setResolution(v[0],v[1]);
   });
 
   $('#outputselect').on('change', ()=>{
@@ -110,17 +107,18 @@ const setup = () => {
   });
 
   $('#dimensionsselect').on('change', ()=>{
-    let v = $('#dimensionsselect').val();
+    let v = $('#dimensionsselect').val().split('x');
 
     if(v == 'reset'){
       manager.onWindowResize();
     }else{
-      manager.width = v;
-      manager.height = v;
-      manager.camera.getCamera().aspect = manager.width / manager.height;
-      manager.camera.getCamera().updateProjectionMatrix();
-      manager.renderer.setSize(v,v);
+      manager.width = v[0];
+      manager.height = v[1];
     }
+
+    manager.camera.getCamera().aspect = manager.width / manager.height;
+    manager.camera.getCamera().updateProjectionMatrix();
+    manager.renderer.setSize(manager.width,manager.height);
   });
 
   $('#togglegrid').click(()=>{
